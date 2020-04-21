@@ -4,8 +4,11 @@
       <h1 class="page-title">Book search</h1>
     </header>
     <div class="content">
-      <input class="search-field" type="text" v-model="search" placeholder="search text" />
-      <div v-if="loading">
+      <form class="book-search-form" name="book-search">
+        <label for="book-search" class="book-search-label">Use the search field below to find books</label>
+        <input name="book-search" id="book-search" class="search-field" type="text" v-model="search" placeholder="Search for books" title="Book searcg field" />
+      </form>
+      <div v-if="loading && search != ''">
         <div class="loader-icon"></div>
       </div>
       <div v-else>
@@ -104,9 +107,15 @@ body {
 }
 
 .search-field {
-  padding: 0.3rem;
-  font-size: 1rem;
+  padding: 0.6rem;
+  font-size: 1.3rem;
   margin-bottom: 2rem;
+  border: 1px solid $color-purple-light;
+}
+
+.book-search-label {
+  display: block;
+  margin-bottom: 1rem;
 }
 
 .loader-icon {
@@ -123,8 +132,8 @@ body {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid $color-black;
-  border-color: $color-black transparent $color-black transparent;
+  border: 6px solid $color-purple;
+  border-color: $color-purple transparent $color-purple transparent;
   animation: loader-icon 1.2s linear infinite;
 }
 
@@ -139,8 +148,16 @@ body {
 
 .book-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, 1fr));
+  grid-template-columns: repeat(1, minmax(100%, 1fr));
   grid-gap: 1rem;
+
+  @media only screen and (min-width: 37.5em) {
+    grid-template-columns: repeat(2, minmax(49%, 1fr));
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    grid-template-columns: repeat(4, minmax(24%, 1fr));
+  }
 }
 
 .book-item {
@@ -279,15 +296,30 @@ body {
 //
 
 .animated-icon{
-  height: 9.5em;
+  //height: 9.5em;
   position: relative;
-  width: 12.7em;
+  //width: 12.7em;
+  width: 60%;
+  height: 65%;
+  max-width: 12.7em;
+
+  .modal-no-image & {
+    min-height: 6.5em;
+
+   .book-cover {
+     &::after {
+       top: -58%;
+     }
+   } 
+  }
   
-  .book-cover{
+  .book-cover {
     background: none;
     border: 0.5em solid #000;
-    height: 7em;
-    width: 5.5em;
+    // height: 7em;
+    // width: 5.5em;
+    height: 73%;
+    width: 43%;
     transform: rotateY(10deg) skewY(5deg);
     transform-style: preserve-3d;
     transform-origin: right;
@@ -300,7 +332,9 @@ body {
       @extend .book-cover;
       position: absolute;
       left: 100%;
-      top: -48px;
+      top: -50%;
+      height: 100%;
+      width: 100%;
       transform: rotateY(0deg) skewY(-10deg);
     }
   }
@@ -308,43 +342,53 @@ body {
     transform-origin: right;
     position: absolute;
     top: 17.5%;
-    left: 2%;
-    height: 7em;
+    left: 3%;
+    //height: 7em;
+    height: 75%;
     border: 4px solid #000;
     background: #fff;
     z-index: 10;
-    width: 5.5em;
+    //width: 5.5em;
+    width: 43%;
     transform: rotateY(0deg) skewY(15deg) scaleX(0.8);
     transform-style: preserve-3d;
 
     &::before{
       content: "";
       position: absolute;
-      top: -.25em;
-      left: -.25em;
+      // top: -.25em;
+      // left: -.25em;
+      top: -3.1%;
+      left: -3.1%;
       transform-origin: right;
       transform: rotateY(180deg) skewY(20deg) scaleX(0.95);
       transform-style: preserve-3d;
       border: 4px solid #000;
       background: #fff;
       z-index: 100;
-      height: 7em;
-      width: 5.5em;
+      //height: 7em;
+      height: 100%;
+      //width: 5.5em;
+      width: 100%;
       animation: turn 2s ease-in-out infinite;
     }
      &::after{
       content: "";
       position: absolute;
-      top: -.25em;
-      left: -.25em;
+      // top: -.25em;
+      // left: -.25em;
+      top: -3.1%;
+      left: -3.1%;
       transform-origin: right;
       transform: rotateY(180deg) skewY(25deg) scaleX(0.95);
       transform-style: preserve-3d;
       border: 4px solid #000;
       background: #fff;
       z-index: 100;
-      height: 7em;
-      width: 5.5em;
+      //height: 7em;
+      height: 100%;
+      //width: 5.5em;
+      width: 100%;
     } 
   }
 }
