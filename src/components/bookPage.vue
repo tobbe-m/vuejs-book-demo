@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       coverId: null,
-      imagePath: 'http://covers.openlibrary.org/b/id/',
+      imagePath: 'https://covers.openlibrary.org/b/id/',
     }
   },
   mounted() {
