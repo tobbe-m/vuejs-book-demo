@@ -54,7 +54,7 @@ export default {
           setTimeout(() => {
             if (this.search != '') {
               let newVal = encodeURIComponent(this.search);
-              let searchUrl = ('http://openlibrary.org/search.json?limit=100&title=').concat(newVal);
+              let searchUrl = ('https://openlibrary.org/search.json?limit=100&title=').concat(newVal);
               Vue.axios.get(searchUrl).then((response) => {
                 this.books = response.data.docs;
                 this.loading = false;
