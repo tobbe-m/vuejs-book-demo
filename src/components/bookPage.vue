@@ -1,12 +1,19 @@
 <template>
-  <div>
-    <h1>{{ book.title }}</h1>
-    <img :src="this.imagePath + book.cover_i + ' -S.jpg'" />
-    <div v-for="author in book.author_name" :key=author.i>
-      {{author}}
+  <div class="book-item">
+    <figure v-if="book.cover_i" class="book-image">
+      <img :src="this.imagePath + book.cover_i + ' -L.jpg'" />
+    </figure>
+    <div v-else>
+      <div class="book-no-image">
+        <bookIcon />
+      </div>
     </div>
-    <button v-on:click="openModal({title: book.title, coverId: book.cover_i, year: book.first_publish_year, authors: book.author_name })">Read more</button>
-    <modals-container/>
+    <div class="book-content">
+      <div class="book-title">{{ book.title }}</div>
+      <div class="book-author" v-for="author in book.author_name" :key=author.i>{{author}}</div>
+    </div>
+    <button class="read-more" v-on:click="openModal({title: book.title, coverId: book.cover_i, year: book.first_publish_year, authors: book.author_name })"></button>
+    <modals-container :adaptive="true" height="95%" />
   </div>
 </template>
 
@@ -14,7 +21,7 @@
 import Vue from 'vue';
 import VModal from 'vue-js-modal';
 import modal from './modal.vue';
-
+import bookIcon from './book-icon.component.vue';
 
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 
@@ -22,6 +29,9 @@ export default {
   name: 'bookPage',
   props: {
     book: Object,
+  },
+  components: {
+    bookIcon
   },
   data() {
     return {
@@ -35,7 +45,7 @@ export default {
   methods: {
     openModal: function(data) {
       let modalTitle = data.title;
-      let modalCover = this.imagePath + data.coverId + '-L.jpg';
+      let modalCover = (data.coverId ? this.imagePath + data.coverId + '-L.jpg' : null);
       let year = data.year.toString();
       let authors = data.authors;
       this.$modal.show(modal, {
@@ -43,7 +53,8 @@ export default {
         imageUrl: modalCover,
         year: year,
         authors: authors,
-      });
+      }, { height: 'auto', adaptive: true },
+      );
     },
   }
 }
