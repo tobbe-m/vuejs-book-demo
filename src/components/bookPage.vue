@@ -1,7 +1,7 @@
 <template>
   <div class="book-item">
     <figure v-if="book.cover_i" class="book-image">
-      <img :src="this.imagePath + book.cover_i + ' -L.jpg'" />
+      <img :src="this.imagePath + book.cover_i + ' -L.jpg'" :alt="'Cover for ' + book.title" />
     </figure>
     <div v-else>
       <div class="book-no-image">

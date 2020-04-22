@@ -2,7 +2,7 @@
   <div class="book-modal">
     <button class="close-modal" v-on:click="closeModal()"></button>
     <figure v-if="imageUrl" class="modal-image">
-      <img :src="imageUrl" />
+      <img :src="imageUrl" :alt="'Cover for ' + title" />
     </figure>
     <div class="modal-no-image" v-else>
       <bookIcon />
